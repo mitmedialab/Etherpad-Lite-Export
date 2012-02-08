@@ -56,12 +56,12 @@ puts "  Exporting to #{export_path}"
 
 # start the toc
 index = File.open(File.join(export_path,"index.html"),'w')
-start_html_file(index, "Table Of Contents")
-index.write("<h1>Table of Contents</h1>")
+start_html_file(index, "Live Table Of Contents")
+index.write("<h1>Live Table of Contents</h1>")
 index.write("<ul>\n")
 server_index = File.open(File.join(export_path,"server-toc.html"),'w')
-start_html_file(server_index, "Table Of Contents")
-server_index.write("<h1>Table of Contents</h1>")
+start_html_file(server_index, "Backup Table Of Contents")
+server_index.write("<h1>Backup Table of Contents</h1>")
 server_index.write("<ul>\n")
 
 # go through all the pad master entries, saving the content of each

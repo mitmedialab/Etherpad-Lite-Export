@@ -66,12 +66,12 @@ print ("  Exporting to $export_path\n");
 
 # start the toc
 $index = fopen($export_path."/index.html",'w');
-start_html_file($index, "Table Of Contents");
-fwrite($index,"<h1>Table of Contents</h1>");
+start_html_file($index, "Backup Table Of Contents");
+fwrite($index,"<h1>Backup Table of Contents</h1>");
 fwrite($index,"<ul>\n");
 $server_toc = fopen($export_path."/server-toc.html",'w');
-start_html_file($server_toc, "Table Of Contents");
-fwrite($server_toc,"<h1>Table of Contents</h1>");
+start_html_file($server_toc, "Live Table Of Contents");
+fwrite($server_toc,"<h1>Live Table of Contents</h1>");
 fwrite($server_toc,"<ul>\n");
 
 # go through all the pad master entries, saving the content of each

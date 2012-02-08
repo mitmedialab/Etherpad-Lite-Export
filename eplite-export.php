@@ -105,4 +105,4 @@ fclose($index);
 fclose($server_toc);
 mysql_close($db);
 
-print("Done");
+print("Done\n");

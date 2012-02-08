@@ -15,11 +15,7 @@ if !File.exists? CONFIG_FILE
   exit
 end
 config = YAML.load(File.open(CONFIG_FILE))
-client = Mysql2::Client.new(:host=>config['db']['host'],
-                            :username=>config['db']['username'],
-                            :password=>config['db']['password'],
-                            :database=>config['db']['database'],
-                           )
+client = Mysql2::Client.new(:host=>config['db']['host'],:username=>config['db']['username'],:password=>config['db']['password'],:database=>config['db']['database'])
 
 puts "Starting eplite export (v#{VERSION})"
 

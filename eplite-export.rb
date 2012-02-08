@@ -15,18 +15,20 @@ if !File.exists? CONFIG_FILE
   exit
 end
 config = YAML.load(File.open(CONFIG_FILE))
-client = Mysql2::Client.new(:host=>config['db']['host'],:username=>config['db']['username'],:password=>config['db']['password'],:database=>config['db']['database'])
 
+# connect to db
+db = Mysql2::db.new(:host=>config['db']['host'],:username=>config['db']['username'],:password=>config['db']['password'],:database=>config['db']['database'])
+
+# print summary info
 puts "Starting eplite export (v#{VERSION})"
-
-results = client.query("SELECT count(*) as total FROM store")
+results = db.query("SELECT count(*) as total FROM store")
 total = results.first['total']
 puts "  Found #{total} rows in the store"
-
-results = client.query("SELECT count(*) as total FROM  `store` WHERE  `key` NOT LIKE  '%:revs:%' AND  `key` LIKE  'pad:%' AND `key` NOT LIKE  '%:chat:%'")
+results = db.query("SELECT count(*) as total FROM  `store` WHERE  `key` NOT LIKE  '%:revs:%' AND  `key` LIKE  'pad:%' AND `key` NOT LIKE  '%:chat:%'")
 total = results.first['total']
 puts "  Found #{total} unique pads in the store"
 
+# helper function - start an html file
 def start_html_file(file, title)
   file.write "<html>\n"
   file.write "<head>\n"
@@ -36,9 +38,10 @@ def start_html_file(file, title)
   file.write "<body>\n"
 end
 
+# helper function - end an html file
 def end_html_file(file)
-  file.write("</html>\n")
-  file.write("</body>\n")
+  file.write "</html>\n"
+  file.write "</body>\n" 
 end
 
 # setup export dirs
@@ -62,7 +65,7 @@ server_index.write("<h1>Table of Contents</h1>")
 server_index.write("<ul>\n")
 
 # go through all the pad master entries, saving the content of each
-results = client.query("SELECT * FROM  `store` WHERE  `key` NOT LIKE  '%:revs:%' AND  `key` LIKE  'pad:%' AND `key` NOT LIKE  '%:chat:%' ORDER BY `key`")
+results = db.query("SELECT * FROM  `store` WHERE  `key` NOT LIKE  '%:revs:%' AND  `key` LIKE  'pad:%' AND `key` NOT LIKE  '%:chat:%' ORDER BY `key`")
 results.each do |pad|
   title = pad['key'].sub("pad:","")
   pad_value = JSON.parse(pad['value'])
@@ -83,8 +86,10 @@ results.each do |pad|
 end
 
 index.write "</ul>\n"
-end_html_file(index)
 server_index.write "</ul>\n"
+
+# cleanup
+end_html_file(index)
 end_html_file(server_index)
 index.close
 server_index.close

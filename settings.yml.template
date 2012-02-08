@@ -1,0 +1,18 @@
+# Holds settings for the ruby etherpad-lite export script.  Make sure to copy this 
+# file to settings.yml and then edit it before running the script.
+
+# path to the directory you want to save timestamped backup folders to
+backup_dir: '/tmp/'
+
+# the base url of your etherpad-lite install, for the live-linked table of contents
+base_url: 'http://eplite.myurl.com'
+
+# the settings to the connect to the mysql database store
+db:
+    host: localhost
+    username: eplite
+    password: eplite
+    database: eplite
+
+# do you want the exported folder to be timestamped?
+timestamp: true

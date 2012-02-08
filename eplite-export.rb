@@ -8,7 +8,7 @@ require 'yaml'
 # thus neeeded some kind of readable backup system.
 
 # load settings
-VERSION = 0.1
+VERSION = 0.2
 CONFIG_FILE = "settings.yml"
 if !File.exists? CONFIG_FILE
   puts "ERROR: you need to create a settings.yml, based on settings.yml.template"

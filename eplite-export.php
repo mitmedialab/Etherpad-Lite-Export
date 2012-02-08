@@ -8,7 +8,7 @@ include('lib/spyc.php');
  */
 
 # load settings
-define('VERSION', '0.1');
+define('VERSION', '0.2');
 define('CONFIG_FILE', "settings.yml");
 if(!file_exists(CONFIG_FILE)) {
   print("ERROR: you need to create a settings.yml, based on settings.yml.template\n");
